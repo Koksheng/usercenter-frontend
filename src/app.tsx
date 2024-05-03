@@ -3,12 +3,16 @@ import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
 import { LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import { SettingDrawer } from '@ant-design/pro-components';
-import type { RequestConfig, RunTimeLayoutConfig } from '@umijs/max';
+import type { RunTimeLayoutConfig } from '@umijs/max';
 import { Link, history } from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
+/**
+ * 无需用户登录态的页面
+ */
+const NO_NEED_LOGIN_WHITE_LIST = ['/user/register', loginPath];
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
@@ -21,27 +25,31 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-      const msg = await queryCurrentUser({
+      // const user = await queryCurrentUser({
+      //   skipErrorHandler: true,
+      // });
+      // return user;
+      return await queryCurrentUser({
         skipErrorHandler: true,
       });
-      return msg.data;
     } catch (error) {
-      // history.push(loginPath);
+      history.push(loginPath);
     }
     return undefined;
   };
-  // 如果不是登录页面，执行
+  // 如果是无需登录页面，不执行
   const { location } = history;
-  if (location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
+  if (NO_NEED_LOGIN_WHITE_LIST.includes(location.pathname)) {
     return {
+      // @ts-ignore
       fetchUserInfo,
-      currentUser,
       settings: defaultSettings as Partial<LayoutSettings>,
     };
   }
+  const currentUser = await fetchUserInfo();
   return {
     fetchUserInfo,
+    currentUser,
     settings: defaultSettings as Partial<LayoutSettings>,
   };
 }
@@ -51,20 +59,19 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
   return {
     actionsRender: () => [<Question key="doc" />],
     avatarProps: {
-      src: initialState?.currentUser?.avatar,
+      src: initialState?.currentUser?.avatarUrl,
       title: <AvatarName />,
       render: (_, avatarChildren) => {
         return <AvatarDropdown>{avatarChildren}</AvatarDropdown>;
       },
     },
     waterMarkProps: {
-      content: initialState?.currentUser?.name,
+      content: initialState?.currentUser?.normalizedUserName,
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
-      const whiteList = ['/user/register', loginPath]
-      if(whiteList.includes(location.pathname)){
+      if (NO_NEED_LOGIN_WHITE_LIST.includes(location.pathname)) {
         return;
       }
       // 如果没有登录，重定向到 login
@@ -137,4 +144,3 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
 export const request = {
   ...errorConfig,
 };
-
