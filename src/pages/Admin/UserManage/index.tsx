@@ -1,7 +1,8 @@
 import { searchUsers } from '@/services/ant-design-pro/api';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable, TableDropdown } from '@ant-design/pro-components';
-import { useRef } from 'react';
+import { ReactNode, useRef } from 'react';
+import { Image } from "antd";
 // import CurrentUser = API.CurrentUser;
 
 export const waitTimePromise = async (time: number = 100) => {
@@ -35,7 +36,11 @@ const columns: ProColumns<API.CurrentUser>[] = [
   {
     title: '头像',
     dataIndex: 'avatarUrl',
-    copyable: true,
+    render:(_:ReactNode, record:API.CurrentUser) => (
+      <div>
+        <Image src={record.avatarUrl} width={100}/>
+      </div>
+    ),
   },
   {
     title: '性别',
@@ -55,9 +60,18 @@ const columns: ProColumns<API.CurrentUser>[] = [
     title: '状态',
     dataIndex: 'userStatus',
   },
-  {
+
+    {
     title: '角色',
-    dataIndex: 'userRole',
+    dataIndex: 'isAdmin',
+    valueType: 'select',
+    valueEnum: {
+      false: { text: '普通用户',status: 'Default', },
+      true: {
+        text: '管理员',
+        status: 'Success',
+      },
+    },
   },
   {
     title: '创建时间',
@@ -122,7 +136,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
       >
         编辑
       </a>,
-      <a href={record.url} target="_blank" rel="noopener noreferrer" key="view">
+      <a href={record.avatarUrl} target="_blank" rel="noopener noreferrer" key="view">
         查看
       </a>,
       <TableDropdown
@@ -144,6 +158,7 @@ export default () => {
       columns={columns}
       actionRef={actionRef}
       cardBordered
+      //@ts-ignore
       request={async (params, sort, filter) => {
         console.log(sort, filter);
         await waitTime(2000);
@@ -152,12 +167,6 @@ export default () => {
         return {
           data: userList,
         };
-
-        // return request<{
-        //   data: CurrentUser[];
-        // }>('https://proapi.azurewebsites.net/github/issues', {
-        //   params,
-        // });
       }}
       editable={{
         type: 'multiple',
