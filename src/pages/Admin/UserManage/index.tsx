@@ -1,8 +1,8 @@
 import { searchUsers } from '@/services/ant-design-pro/api';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable, TableDropdown } from '@ant-design/pro-components';
+import { Image } from 'antd';
 import { ReactNode, useRef } from 'react';
-import { Image } from "antd";
 // import CurrentUser = API.CurrentUser;
 
 export const waitTimePromise = async (time: number = 100) => {
@@ -36,9 +36,9 @@ const columns: ProColumns<API.CurrentUser>[] = [
   {
     title: '头像',
     dataIndex: 'avatarUrl',
-    render:(_:ReactNode, record:API.CurrentUser) => (
+    render: (_: ReactNode, record: API.CurrentUser) => (
       <div>
-        <Image src={record.avatarUrl} width={100}/>
+        <Image src={record.avatarUrl} width={100} />
       </div>
     ),
   },
@@ -60,13 +60,17 @@ const columns: ProColumns<API.CurrentUser>[] = [
     title: '状态',
     dataIndex: 'userStatus',
   },
+  {
+    title: '星球编号',
+    dataIndex: 'planetCode',
+  },
 
-    {
+  {
     title: '角色',
     dataIndex: 'isAdmin',
     valueType: 'select',
     valueEnum: {
-      false: { text: '普通用户',status: 'Default', },
+      false: { text: '普通用户', status: 'Default' },
       true: {
         text: '管理员',
         status: 'Success',
@@ -165,7 +169,8 @@ export default () => {
 
         const userList = await searchUsers();
         return {
-          data: userList,
+          //@ts-ignore
+          data: userList.data,
         };
       }}
       editable={{

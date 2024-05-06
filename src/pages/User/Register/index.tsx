@@ -1,23 +1,12 @@
 import { Footer } from '@/components';
-import { login, register } from '@/services/ant-design-pro/api';
-import {
-  AlipayCircleOutlined,
-  LockOutlined,
-  TaobaoCircleOutlined,
-  UserOutlined,
-  WeiboCircleOutlined,
-} from '@ant-design/icons';
-import {
-  LoginForm,
-  ProFormCheckbox,
-  ProFormText,
-} from '@ant-design/pro-components';
-import { Helmet, history, useModel } from '@umijs/max';
-import { Alert, Tabs, message } from 'antd';
+import { SYSTEM_LOGO } from '@/constants';
+import { register } from '@/services/ant-design-pro/api';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LoginForm, ProFormText } from '@ant-design/pro-components';
+import { Helmet, history } from '@umijs/max';
+import { Tabs, message } from 'antd';
 import { createStyles } from 'antd-style';
 import React, { useState } from 'react';
-import { flushSync } from 'react-dom';
-import { SYSTEM_LOGO } from '@/constants';
 import Settings from '../../../../config/defaultSettings';
 const useStyles = createStyles(({ token }) => {
   return {
@@ -86,12 +75,11 @@ const Register: React.FC = () => {
   const [type, setType] = useState<string>('account');
 
   const { styles } = useStyles();
-  
 
   const handleSubmit = async (values: API.RegisterParams) => {
-    const { userPassword, checkPassword} = values;
+    const { userPassword, checkPassword } = values;
     // 校验 verify
-    if(userPassword !== checkPassword){
+    if (userPassword !== checkPassword) {
       message.error('两次输入的密码不一致');
       return;
     }
@@ -113,8 +101,7 @@ const Register: React.FC = () => {
         //   query,
         // });
         return;
-      }
-      else{
+      } else {
         throw new Error(`register error id = ${id}`);
       }
     } catch (error) {
@@ -129,7 +116,7 @@ const Register: React.FC = () => {
           {'注册'}- {Settings.title}
         </title>
       </Helmet>
-      
+
       <div
         style={{
           flex: '1',
@@ -142,9 +129,9 @@ const Register: React.FC = () => {
             maxWidth: '75vw',
           }}
           submitter={{
-            searchConfig:{
-              submitText:'注册'
-            }
+            searchConfig: {
+              submitText: '注册',
+            },
           }}
           logo={<img alt="logo" src={SYSTEM_LOGO} />}
           title="Ant Design"
@@ -201,7 +188,7 @@ const Register: React.FC = () => {
                     min: 8,
                     type: 'string',
                     message: '长度不能小于8',
-                  }
+                  },
                 ]}
               />
               <ProFormText.Password
@@ -220,7 +207,21 @@ const Register: React.FC = () => {
                     min: 8,
                     type: 'string',
                     message: '长度不能小于8',
-                  }
+                  },
+                ]}
+              />
+              <ProFormText
+                name="planetCode"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <UserOutlined />,
+                }}
+                placeholder={'请输入星球编号'}
+                rules={[
+                  {
+                    required: true,
+                    message: '星球编号是必填项！',
+                  },
                 ]}
               />
             </>

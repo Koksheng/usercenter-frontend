@@ -13,7 +13,8 @@ declare namespace API {
     userStatus: number;
     // userRole: number;
     createTime: Date;
-    isAdmin: boolean;
+    isAdmin: boolean; // userRole
+    planetCode: string;
   };
 
   type LoginResult = {
@@ -67,6 +68,7 @@ declare namespace API {
     userAccount?: string;
     userPassword?: string;
     checkPassword?: string;
+    planetCode?: string;
     type?: string;
   };
 

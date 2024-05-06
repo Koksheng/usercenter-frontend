@@ -10,9 +10,9 @@ export async function currentUser(options?: { [key: string]: any }) {
   });
 }
 
-/** 退出登录接口 POST /api/login/outLogin */
+/** 退出登录接口 POST /api/user/userLogout */
 export async function outLogin(options?: { [key: string]: any }) {
-  return request<Record<string, any>>('/api/login/outLogin', {
+  return request<Record<string, any>>('/api/user/userLogout', {
     method: 'POST',
     ...(options || {}),
   });
@@ -47,6 +47,8 @@ export async function searchUsers(options?: { [key: string]: any }) {
   return request<API.CurrentUser>('/api/user/searchUsers', {
     method: 'GET',
     ...(options || {}),
+    // data: body,
+    // ...(options || {}),
   });
 }
 
