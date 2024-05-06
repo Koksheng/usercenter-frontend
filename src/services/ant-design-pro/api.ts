@@ -4,7 +4,7 @@ import { request } from '@umijs/max';
 
 /** 获取当前的用户 GET /api/user/getCurrentUser */
 export async function currentUser(options?: { [key: string]: any }) {
-  return request<API.CurrentUser>('/api/user/getCurrentUser', {
+  return request<API.BaseResponse<API.CurrentUser>>('/api/user/getCurrentUser', {
     method: 'GET',
     ...(options || {}),
   });
@@ -12,7 +12,7 @@ export async function currentUser(options?: { [key: string]: any }) {
 
 /** 退出登录接口 POST /api/user/userLogout */
 export async function outLogin(options?: { [key: string]: any }) {
-  return request<Record<string, any>>('/api/user/userLogout', {
+  return request<API.BaseResponse<number>>('/api/user/userLogout', {
     method: 'POST',
     ...(options || {}),
   });
@@ -20,7 +20,7 @@ export async function outLogin(options?: { [key: string]: any }) {
 
 /** 登录接口 POST /api/user/userLogin */
 export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
-  return request<API.LoginResult>('/api/User/userLogin', {
+  return request<API.BaseResponse<API.LoginResult>>('/api/User/userLogin', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ export async function login(body: API.LoginParams, options?: { [key: string]: an
 
 /** 注册接口 POST /api/user/userRegister */
 export async function register(body: API.RegisterParams, options?: { [key: string]: any }) {
-  return request<API.RegisterResult>('/api/User/userRegister', {
+  return request<API.BaseResponse<API.RegisterResult>>('/api/User/userRegister', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export async function register(body: API.RegisterParams, options?: { [key: strin
 
 /** 搜索用户 GET /api/user/searchUsers/ */
 export async function searchUsers(options?: { [key: string]: any }) {
-  return request<API.CurrentUser>('/api/user/searchUsers', {
+  return request<API.BaseResponse<API.CurrentUser>>('/api/user/searchUsers', {
     method: 'GET',
     ...(options || {}),
     // data: body,

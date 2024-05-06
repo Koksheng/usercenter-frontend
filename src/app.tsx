@@ -29,11 +29,11 @@ export async function getInitialState(): Promise<{
       //   skipErrorHandler: true,
       // });
       // return user;
-      const user = await queryCurrentUser({
+      const res = await queryCurrentUser({
         // return await queryCurrentUser({
         skipErrorHandler: true,
       });
-      return user.data;
+      return res.data;
     } catch (error) {
       history.push(loginPath);
     }
