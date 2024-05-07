@@ -170,7 +170,8 @@ export default () => {
         const userList = await searchUsers();
         return {
           //@ts-ignore
-          data: userList.data,
+          // data: userList.data,
+          data: userList,
         };
       }}
       editable={{

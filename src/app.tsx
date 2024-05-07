@@ -33,7 +33,8 @@ export async function getInitialState(): Promise<{
         // return await queryCurrentUser({
         skipErrorHandler: true,
       });
-      return res.data;
+      // return res.data;
+      return res;
     } catch (error) {
       history.push(loginPath);
     }
@@ -50,7 +51,9 @@ export async function getInitialState(): Promise<{
   }
   const currentUser = await fetchUserInfo();
   return {
+    //@ts-ignore
     fetchUserInfo,
+    //@ts-ignore
     currentUser,
     settings: defaultSettings as Partial<LayoutSettings>,
   };

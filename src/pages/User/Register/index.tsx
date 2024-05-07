@@ -85,12 +85,12 @@ const Register: React.FC = () => {
     }
     try {
       // 注册
-      const res = await register({
+      const id = await register({
         ...values,
         // type,
       });
-      console.log(res);
-      if (res.code===0 && res.data > 0) {
+      // if (res.code===0 && res.data > 0) {
+      if (id) {
         const defaultLoginSuccessMessage = '注册成功！';
         message.success(defaultLoginSuccessMessage);
         const urlParams = new URL(window.location.href).searchParams;
@@ -102,12 +102,14 @@ const Register: React.FC = () => {
         //   query,
         // });
         return;
-      } else {
-        throw new Error(res.description);
-      }
+      } 
+      // else {
+      //   // throw new Error(res.description);
+      //   throw new Error("resiter error id");
+      // }
     } catch (error: any) {
       const defaultLoginFailureMessage = '注册失败，请重试！';
-      message.error(error.message ?? defaultLoginFailureMessage);
+      message.error(defaultLoginFailureMessage);
     }
   };
   return (
