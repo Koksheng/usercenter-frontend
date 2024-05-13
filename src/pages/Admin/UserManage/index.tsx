@@ -25,12 +25,12 @@ const columns: ProColumns<API.CurrentUser>[] = [
   },
   {
     title: '用户名',
-    dataIndex: 'normalizedUserName', // == username
+    dataIndex: 'userName', // == username == normalizedUserName
     copyable: true,
   },
   {
     title: '用户账户',
-    dataIndex: 'userName', // == userAccount
+    dataIndex: 'userAccount', // == userAccount
     copyable: true,
   },
   {
@@ -67,12 +67,12 @@ const columns: ProColumns<API.CurrentUser>[] = [
 
   {
     title: '角色',
-    dataIndex: 'isAdmin',
+    dataIndex: 'userRole', // userRole == isAdmin
     valueType: 'select',
     valueEnum: {
-      false: { text: '普通用户', status: 'Default' },
+      false: { text: 'User', status: 'Default' },
       true: {
-        text: '管理员',
+        text: 'Admin',
         status: 'Success',
       },
     },
