@@ -1,57 +1,21 @@
-# Ant Design Pro
+# User Center Project - Frontend
+[Backend at here](https://github.com/Koksheng/usercenter-backend)
 
-This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
+## Project Description
 
-## Environment Prepare
+The user-center system is a full-stack project based on .NET Core backend and React frontend. It implements basic functions such as user registration, login, and querying.
 
-Install `node_modules`:
+![image](https://github.com/Koksheng/usercenter-frontend/assets/33799735/6ecb2338-b881-46e5-8499-c17757b1750e)
+![image](https://github.com/Koksheng/usercenter-frontend/assets/33799735/7a0cd2a1-c108-4d94-a367-2269e4f3d5af)
 
-```bash
-npm install
-```
+## Tech Stack
+Mainly using Ant Design ecosystem:
 
-or
+1. HTML + CSS + JavaScript 
+2. React development framework
+3. Ant Design Pro project template
+4. Ant Design side component library
+5. Umi development framework
+6. Umi Request request library
+7. Forward and reverse proxies
 
-```bash
-yarn
-```
-
-## Provided Scripts
-
-Ant Design Pro provides some useful script to help you quick start and build with web project, code style check and test.
-
-Scripts provided in `package.json`. It's safe to modify or add additional script:
-
-### Start project
-
-```bash
-npm start
-```
-
-### Build project
-
-```bash
-npm run build
-```
-
-### Check code style
-
-```bash
-npm run lint
-```
-
-You can also use script to auto fix some lint error:
-
-```bash
-npm run lint:fix
-```
-
-### Test code
-
-```bash
-npm test
-```
-
-## More
-
-You can view full document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).
