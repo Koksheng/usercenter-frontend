@@ -4,16 +4,16 @@
 declare namespace API {
   type CurrentUser = {
     id: number;
-    userName: string; // == username == normalizedUserName
-    userAccount: string; // == userAccount == userName
+    normalizedUserName: string; // == username == normalizedUserName
+    userName: string; // == userAccount == userName
     avatarUrl?: string;
     gender: number;
     phone: string;
     email: string;
     userStatus: number;
-    userRole: number;
+    // userRole: number;
     createTime: Date;
-    // isAdmin: boolean; // userRole == isAdmin
+    isAdmin: boolean; // userRole == isAdmin
     planetCode: string;
   };
 
